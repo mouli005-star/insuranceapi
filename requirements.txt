@@ -5,6 +5,7 @@ numpy
 pandas
 joblib
 scikit-learn
+streamlit
 
 # To update with exact versions from your virtualenv run:
 # pip freeze > requirements.txt
