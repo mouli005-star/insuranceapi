@@ -1,0 +1,10 @@
+fastapi==0.128.0
+uvicorn[standard]
+pydantic
+numpy
+pandas
+joblib
+scikit-learn
+
+# To update with exact versions from your virtualenv run:
+# pip freeze > requirements.txt
