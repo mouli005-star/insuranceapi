@@ -42,6 +42,13 @@ Notes
 uvicorn app:app --reload
 ```
 
+Streamlit Cloud deployment
+
+1. In Streamlit Cloud, set Main file path to `frontend.py` (not `app.py`).
+2. Keep branch as `main`.
+3. Use this repo root as-is (`requirements.txt` and `runtime.txt` are already configured).
+4. Click Reboot app after each push.
+
 If you want, I can:
 
 - initialize the git repo locally and create the initial commit, or

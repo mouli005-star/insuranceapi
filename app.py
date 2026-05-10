@@ -3,11 +3,16 @@ from pydantic import BaseModel, Field,computed_field
 from typing import Literal,Annotated
 from fastapi.responses import JSONResponse
 import joblib
-import numpy as np
 import pandas as pd
 
-# Importing the ML model
-model = joblib.load('model.pkl')
+def load_model():
+    try:
+        return joblib.load('model.pkl'), None
+    except Exception as exc:
+        return None, str(exc)
+
+# Load model safely so app import does not crash deployment health checks.
+model, model_load_error = load_model()
 
 
 app = FastAPI()
@@ -79,6 +84,14 @@ class InputData(BaseModel):
         
 @app.post("/predict")
 def predict_premium(data: InputData):
+    if model is None:
+        return JSONResponse(
+            status_code=500,
+            content={
+                "error": "Model failed to load",
+                "details": model_load_error,
+            },
+        )
 
     input_df = pd.DataFrame([{
         'bmi' : data.bmi,
